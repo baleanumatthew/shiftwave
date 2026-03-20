@@ -68,7 +68,7 @@ const logJob = (job, message) => {
 
 const setCorsHeaders = (response) => {
   response.setHeader('Access-Control-Allow-Origin', '*');
-  response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  response.setHeader('Access-Control-Allow-Headers', 'Content-Type, ngrok-skip-browser-warning');
   response.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
 };
 

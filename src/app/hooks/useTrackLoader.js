@@ -17,6 +17,7 @@ import {
 } from '../utils/imports.js';
 
 const noop = () => {};
+const isAbsoluteUrl = (value) => /^https?:\/\//iu.test(String(value ?? ''));
 
 export const useTrackLoader = ({ onTrackLoaded = noop } = {}) => {
   const [audioData, setAudioData] = useState(null);
@@ -99,9 +100,37 @@ export const useTrackLoader = ({ onTrackLoaded = noop } = {}) => {
     runFeatureAnalysis(audioBuffer, loadId);
   }, [isCurrentLoad, onTrackLoaded, resetFeatures, runFeatureAnalysis, stopActiveWorkers]);
 
-  const waitForYoutubeImport = useCallback(async (jobId, loadId) => {
+  const fetchYoutubeBridgeResource = useCallback(async (resource, options = {}) => {
+    const headers = new Headers(options.headers ?? {});
+
+    headers.set('ngrok-skip-browser-warning', 'true');
+
+    return fetch(
+      isAbsoluteUrl(resource) ? resource : getYoutubeBridgeUrl(resource),
+      {
+        ...options,
+        cache: 'no-store',
+        headers,
+      },
+    );
+  }, []);
+
+  const waitForYoutubeImport = useCallback(async (statusUrl, loadId) => {
     while (isCurrentLoad(loadId)) {
-      const statusResponse = await fetch(getYoutubeBridgeUrl(`/imports/${jobId}`));
+      let statusResponse;
+
+      try {
+        statusResponse = await fetchYoutubeBridgeResource(statusUrl);
+      } catch (error) {
+        if (error instanceof TypeError) {
+          throw new Error(
+            'The bridge accepted the import, but status polling failed. Check the ngrok tunnel and browser network access.',
+          );
+        }
+
+        throw error;
+      }
+
       const statusPayload = await statusResponse.json().catch(() => ({}));
 
       if (!statusResponse.ok) {
@@ -130,7 +159,7 @@ export const useTrackLoader = ({ onTrackLoaded = noop } = {}) => {
     }
 
     throw new Error('A newer audio load replaced this YouTube import.');
-  }, [isCurrentLoad]);
+  }, [fetchYoutubeBridgeResource, isCurrentLoad]);
 
   const handleYoutubeImport = useCallback(async (event) => {
     event.preventDefault();
@@ -156,7 +185,7 @@ export const useTrackLoader = ({ onTrackLoaded = noop } = {}) => {
     setIsImporting(true);
 
     try {
-      const ingestResponse = await fetch(getYoutubeBridgeUrl('/ingest/youtube'), {
+      const ingestResponse = await fetchYoutubeBridgeResource('/ingest/youtube', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -176,13 +205,22 @@ export const useTrackLoader = ({ onTrackLoaded = noop } = {}) => {
       const jobId = typeof ingestPayload?.jobId === 'string'
         ? ingestPayload.jobId
         : null;
+      const statusUrl = typeof ingestPayload?.statusUrl === 'string'
+        ? ingestPayload.statusUrl
+        : (jobId ? getYoutubeBridgeUrl(`/imports/${jobId}`) : null);
 
       if (!jobId) {
         throw new Error('The YouTube bridge did not return an import job ID.');
       }
 
-      const readyJob = await waitForYoutubeImport(jobId, loadId);
-      const audioUrl = getYoutubeBridgeUrl(`/media/${jobId}`);
+      if (!statusUrl) {
+        throw new Error('The YouTube bridge did not return an import status URL.');
+      }
+
+      const readyJob = await waitForYoutubeImport(statusUrl, loadId);
+      const audioUrl = typeof readyJob?.mediaUrl === 'string'
+        ? readyJob.mediaUrl
+        : getYoutubeBridgeUrl(`/media/${jobId}`);
       const title = typeof readyJob?.title === 'string' ? readyJob.title : 'YouTube audio';
       const uploader = typeof readyJob?.artist === 'string' ? readyJob.artist : '';
       const channel = readyJob?.metadata && typeof readyJob.metadata === 'object'
@@ -208,7 +246,19 @@ export const useTrackLoader = ({ onTrackLoaded = noop } = {}) => {
             title,
           };
 
-      const audioResponse = await fetch(audioUrl);
+      let audioResponse;
+
+      try {
+        audioResponse = await fetchYoutubeBridgeResource(audioUrl);
+      } catch (error) {
+        if (error instanceof TypeError) {
+          throw new Error(
+            'The import finished, but the browser could not fetch the audio file from the bridge.',
+          );
+        }
+
+        throw error;
+      }
 
       if (!audioResponse.ok) {
         const audioPayload = await audioResponse.json().catch(() => ({}));
@@ -239,7 +289,14 @@ export const useTrackLoader = ({ onTrackLoaded = noop } = {}) => {
         setIsImporting(false);
       }
     }
-  }, [beginLoadingAttempt, isCurrentLoad, loadAudioFromArrayBuffer, waitForYoutubeImport, youtubeUrl]);
+  }, [
+    beginLoadingAttempt,
+    fetchYoutubeBridgeResource,
+    isCurrentLoad,
+    loadAudioFromArrayBuffer,
+    waitForYoutubeImport,
+    youtubeUrl,
+  ]);
 
   const handleFileChange = useCallback(async (event) => {
     const file = event.target.files?.[0];
