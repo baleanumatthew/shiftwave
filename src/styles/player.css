@@ -1,0 +1,275 @@
+.control-pod {
+  display: grid;
+  grid-template-columns: 50px minmax(0, 1fr) 50px;
+  align-items: stretch;
+  padding: 8px;
+  border-radius: var(--radius-md);
+}
+
+.control-pod__step,
+.control-pod__center,
+.control-pod__reset,
+.transport-button {
+  border: 0;
+  color: var(--text);
+}
+
+.control-pod__step {
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: transparent;
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.control-pod__center {
+  --control-pod-edge-inset: 2px;
+  position: relative;
+  min-width: 0;
+  background: transparent;
+  border-radius: 12px;
+  padding-block: 24px 28px;
+}
+
+.control-pod__title {
+  position: absolute;
+  top: var(--control-pod-edge-inset);
+  left: 50%;
+  transform: translateX(-50%);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.control-pod__value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.control-pod__reset {
+  position: absolute;
+  left: 50%;
+  bottom: var(--control-pod-edge-inset);
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+  border-radius: 999px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.control-pod__reset:hover {
+  color: var(--text);
+  background: rgb(255 255 255 / 0.05);
+}
+
+.control-pod__step:disabled,
+.control-pod__center:disabled,
+.control-pod__reset:disabled,
+.dashboard-url__submit:disabled,
+.transport-button:disabled {
+  color: var(--text-soft);
+}
+
+.player-inline-error,
+.transport-dock {
+  grid-column: 1 / -1;
+}
+
+.transport-dock {
+  --transport-dock-inline-gap: 16px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 320px) auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--transport-dock-inline-gap);
+  min-height: 66px;
+  padding: 10px var(--transport-dock-inline-gap);
+  border-radius: var(--radius-lg);
+}
+
+.transport-dock__play {
+  display: flex;
+  justify-self: start;
+}
+
+.transport-button {
+  display: inline-grid;
+  place-items: center;
+  min-height: 40px;
+  min-width: 40px;
+  width: auto;
+  padding: 0;
+  border-radius: 14px;
+  background: transparent;
+}
+
+.transport-button__icon,
+.transport-dock__volume-icon {
+  width: 26px;
+  height: 26px;
+  display: block;
+  overflow: visible;
+  filter:
+    drop-shadow(0 0 8px color-mix(in srgb, var(--glow-color-secondary) 28%, transparent))
+    drop-shadow(0 0 12px color-mix(in srgb, var(--glow-color-primary) 16%, transparent));
+}
+
+.transport-dock__progress {
+  min-width: 0;
+  width: 100%;
+}
+
+.transport-dock__time {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  font-family: var(--mono);
+  font-size: 0.88rem;
+  white-space: nowrap;
+}
+
+.transport-dock__divider {
+  color: var(--text-soft);
+}
+
+.transport-dock__volume {
+  display: grid;
+  grid-template-columns: auto 112px;
+  align-items: center;
+  gap: var(--transport-dock-inline-gap);
+  justify-self: end;
+  min-width: 0;
+}
+
+.transport-dock__volume-label {
+  display: inline-grid;
+  place-items: center;
+  min-width: 26px;
+}
+
+.range-input {
+  width: 100%;
+  margin: 0;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.range-input::-webkit-slider-runnable-track {
+  height: 12px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    linear-gradient(
+      115deg,
+      color-mix(in srgb, var(--glow-color-primary) 88%, transparent),
+      color-mix(in srgb, var(--glow-color-secondary) 42%, transparent),
+      color-mix(in srgb, var(--glow-color-tertiary) 82%, transparent),
+      color-mix(in srgb, var(--glow-color-primary) 88%, transparent)
+    ) border-box;
+  box-shadow:
+    0 0 0 0.5px color-mix(in srgb, var(--glow-color-primary) 20%, transparent),
+    0 0 12px color-mix(in srgb, var(--glow-color-secondary) 12%, transparent);
+}
+
+.range-input::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -4px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    linear-gradient(
+      115deg,
+      color-mix(in srgb, var(--glow-color-primary) 88%, transparent),
+      color-mix(in srgb, var(--glow-color-secondary) 42%, transparent),
+      color-mix(in srgb, var(--glow-color-tertiary) 82%, transparent),
+      color-mix(in srgb, var(--glow-color-primary) 88%, transparent)
+    ) border-box;
+  box-shadow:
+    0 0 0 0.5px color-mix(in srgb, var(--glow-color-primary) 20%, transparent),
+    0 0 12px color-mix(in srgb, var(--glow-color-secondary) 12%, transparent);
+}
+
+.range-input::-moz-range-track {
+  height: 12px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    linear-gradient(
+      115deg,
+      color-mix(in srgb, var(--glow-color-primary) 88%, transparent),
+      color-mix(in srgb, var(--glow-color-secondary) 42%, transparent),
+      color-mix(in srgb, var(--glow-color-tertiary) 82%, transparent),
+      color-mix(in srgb, var(--glow-color-primary) 88%, transparent)
+    ) border-box;
+  box-shadow:
+    0 0 0 0.5px color-mix(in srgb, var(--glow-color-primary) 20%, transparent),
+    0 0 12px color-mix(in srgb, var(--glow-color-secondary) 12%, transparent);
+}
+
+.range-input::-moz-range-progress {
+  height: 12px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    linear-gradient(
+      115deg,
+      color-mix(in srgb, var(--glow-color-primary) 88%, transparent),
+      color-mix(in srgb, var(--glow-color-secondary) 42%, transparent),
+      color-mix(in srgb, var(--glow-color-tertiary) 82%, transparent),
+      color-mix(in srgb, var(--glow-color-primary) 88%, transparent)
+    ) border-box;
+  box-shadow:
+    0 0 0 0.5px color-mix(in srgb, var(--glow-color-primary) 20%, transparent),
+    0 0 12px color-mix(in srgb, var(--glow-color-secondary) 12%, transparent);
+}
+
+.range-input::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    linear-gradient(
+      115deg,
+      color-mix(in srgb, var(--glow-color-primary) 88%, transparent),
+      color-mix(in srgb, var(--glow-color-secondary) 42%, transparent),
+      color-mix(in srgb, var(--glow-color-tertiary) 82%, transparent),
+      color-mix(in srgb, var(--glow-color-primary) 88%, transparent)
+    ) border-box;
+  box-shadow:
+    0 0 0 0.5px color-mix(in srgb, var(--glow-color-primary) 20%, transparent),
+    0 0 12px color-mix(in srgb, var(--glow-color-secondary) 12%, transparent);
+}
+
+.range-input::-moz-focus-outer {
+  border: 0;
+}
+
+.range-input:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

@@ -1,0 +1,14 @@
+export const DEFAULT_TEMPO = 1;
+export const DEFAULT_PITCH_SEMITONES = 0;
+export const DEFAULT_PITCH = 1;
+export const DEFAULT_VOLUME = 0.5;
+export const END_EPSILON_SECONDS = 0.01;
+export const TEMPO_MIN = 0.5;
+export const TEMPO_MAX = 2;
+export const TEMPO_BUTTON_STEP = 0.02;
+export const PITCH_MIN = -12;
+export const PITCH_MAX = 12;
+export const PITCH_STEP = 1;
+export const VOLUME_MIN = 0;
+export const VOLUME_MAX = 1;
+export const VOLUME_SLIDER_STEP = 0.01;

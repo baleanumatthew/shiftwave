@@ -1,0 +1,66 @@
+@media (max-width: 720px) {
+  .app-shell {
+    padding-inline: 16px;
+  }
+
+  .dashboard {
+    width: 100%;
+  }
+
+  .dashboard-title__svg {
+    width: 100%;
+  }
+
+  .dashboard-title__text {
+    font-size: 112px;
+    letter-spacing: 0.1em;
+  }
+
+  .dashboard-top,
+  .dashboard-middle,
+  .dashboard-bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-top {
+    row-gap: 16px;
+  }
+
+  .dashboard-middle {
+    gap: 18px;
+  }
+
+  .dashboard-artwork,
+  .dashboard-stats {
+    width: 100%;
+    min-height: 220px;
+  }
+
+  .dashboard-stats--panel-entering {
+    animation: value-float-in 1000ms var(--ease-out);
+  }
+
+  .dashboard-stats {
+    margin-left: 0;
+  }
+
+  .dashboard-bottom {
+    gap: 16px;
+  }
+
+  .transport-dock {
+    grid-template-columns: 1fr;
+  }
+
+  .transport-button {
+    width: 100%;
+  }
+
+  .transport-dock__time {
+    justify-content: center;
+  }
+
+  .transport-dock__volume {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+}

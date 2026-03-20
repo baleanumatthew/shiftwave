@@ -1,0 +1,76 @@
+.dashboard-action,
+.dashboard-url,
+.dashboard-artwork,
+.dashboard-stats,
+.dashboard-meta,
+.control-pod,
+.transport-dock {
+  position: relative;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    linear-gradient(
+      115deg,
+      color-mix(in srgb, var(--glow-color-primary) 88%, transparent),
+      color-mix(in srgb, var(--glow-color-secondary) 42%, transparent),
+      color-mix(in srgb, var(--glow-color-tertiary) 82%, transparent),
+      color-mix(in srgb, var(--glow-color-primary) 88%, transparent)
+    ) border-box;
+  background-size: 100% 100%, 220% 220%;
+  background-position: 0 0, 0% 50%;
+  border: 1px solid transparent;
+  box-shadow:
+    var(--shadow-soft),
+    0 0 0 0.5px color-mix(in srgb, var(--glow-color-primary) 20%, transparent),
+    0 0 22px color-mix(in srgb, var(--glow-color-secondary) 12%, transparent);
+  animation: surface-border-glow 11s linear infinite;
+}
+
+.dashboard-action,
+.dashboard-url,
+.dashboard-meta,
+.control-pod,
+.transport-dock,
+.dashboard-url__submit,
+.transport-button,
+.control-pod__step,
+.control-pod__center {
+  transition:
+    transform 180ms var(--ease-out),
+    background-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.dashboard-action:hover,
+.dashboard-url:hover,
+.dashboard-meta:hover,
+.control-pod:hover,
+.transport-dock:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-strong);
+}
+
+.dashboard-url__submit:hover,
+.transport-button:hover,
+.control-pod__step:hover,
+.control-pod__center:hover {
+  background: var(--surface-raised);
+}
+
+.dashboard-url__submit:active,
+.transport-button:active,
+.control-pod__step:active,
+.control-pod__center:active {
+  transform: translateY(0);
+}
+
+.dashboard-action:focus-visible,
+.dashboard-url:focus-within,
+.dashboard-url__submit:focus-visible,
+.transport-button:focus-visible,
+.control-pod__step:focus-visible,
+.control-pod__center:focus-visible,
+.control-pod__reset:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--focus);
+}

@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+
+@property --glow-color-primary {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: rgb(232 232 232);
+}
+
+@property --glow-color-secondary {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: rgb(168 168 168);
+}
+
+@property --glow-color-tertiary {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: rgb(118 118 118);
+}
+
+:root {
+  --bg: #000000;
+  --surface: #000000;
+  --surface-raised: #000000;
+  --surface-strong: #000000;
+  --text: #f5f5f5;
+  --text-muted: #a3a3a3;
+  --text-soft: #737373;
+  --danger: #f87171;
+  --focus: rgba(255, 255, 255, 0.18);
+  --glow-color-primary: rgb(232 232 232);
+  --glow-color-secondary: rgb(168 168 168);
+  --glow-color-tertiary: rgb(118 118 118);
+  --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.32);
+  --shadow-strong: 0 24px 60px rgba(0, 0, 0, 0.45);
+  --radius-sm: 14px;
+  --radius-md: 18px;
+  --radius-lg: 22px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --sans: 'Geist', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --title: 'Audiowide', 'Geist', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --mono: 'Geist Mono', 'SFMono-Regular', Consolas, monospace;
+
+  color: var(--text);
+  background: var(--bg);
+  color-scheme: dark;
+  font-family: var(--sans);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #000000;
+}
+
+body,
+button,
+input,
+label {
+  font: inherit;
+}
+
+button,
+input {
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled,
+input:disabled {
+  cursor: not-allowed;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+#root {
+  display: flex;
+}

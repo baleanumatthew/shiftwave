@@ -1,0 +1,112 @@
+@keyframes value-float-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes value-float-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+@keyframes content-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes content-fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes stat-adjustment-in {
+  from {
+    max-width: 0;
+    margin-left: 0;
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    max-width: 24ch;
+    margin-left: 12px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes stat-adjustment-out {
+  from {
+    max-width: 24ch;
+    margin-left: 12px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    max-width: 0;
+    margin-left: 0;
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@keyframes surface-border-glow {
+  from {
+    background-position: 0 0, 0% 50%;
+  }
+
+  50% {
+    background-position: 0 0, 100% 50%;
+  }
+
+  to {
+    background-position: 0 0, 0% 50%;
+  }
+}
+
+@keyframes title-outline-glow {
+  from {
+    filter:
+      drop-shadow(0 0 8px color-mix(in srgb, var(--glow-color-primary) 18%, transparent))
+      drop-shadow(0 0 18px color-mix(in srgb, var(--glow-color-secondary) 12%, transparent))
+      drop-shadow(0 0 26px color-mix(in srgb, var(--glow-color-tertiary) 10%, transparent));
+  }
+
+  50% {
+    filter:
+      drop-shadow(0 0 10px color-mix(in srgb, var(--glow-color-primary) 28%, transparent))
+      drop-shadow(0 0 24px color-mix(in srgb, var(--glow-color-secondary) 18%, transparent))
+      drop-shadow(0 0 34px color-mix(in srgb, var(--glow-color-tertiary) 14%, transparent));
+  }
+
+  to {
+    filter:
+      drop-shadow(0 0 8px color-mix(in srgb, var(--glow-color-primary) 18%, transparent))
+      drop-shadow(0 0 18px color-mix(in srgb, var(--glow-color-secondary) 12%, transparent))
+      drop-shadow(0 0 26px color-mix(in srgb, var(--glow-color-tertiary) 10%, transparent));
+  }
+}
