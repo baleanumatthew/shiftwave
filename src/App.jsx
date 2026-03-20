@@ -31,6 +31,8 @@ function App() {
     loadError,
     playerVersion,
     sourceMetadata,
+    isYouTubeImportAvailable,
+    youtubeImportUnavailableMessage,
     youtubeUrl,
   } = useTrackLoader({
     onTrackLoaded: resetTrackAdjustments,
@@ -70,7 +72,9 @@ function App() {
           handleFileChange={handleFileChange}
           handleYoutubeImport={handleYoutubeImport}
           isImporting={isImporting}
+          isYouTubeImportAvailable={isYouTubeImportAvailable}
           onYouTubeUrlChange={handleYouTubeUrlChange}
+          youtubeImportUnavailableMessage={youtubeImportUnavailableMessage}
           youtubeUrl={youtubeUrl}
         />
 

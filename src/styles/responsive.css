@@ -26,6 +26,11 @@
     row-gap: 16px;
   }
 
+  .dashboard-helper {
+    grid-column: 1;
+    margin-top: -8px;
+  }
+
   .dashboard-middle {
     gap: 18px;
   }

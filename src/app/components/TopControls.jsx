@@ -3,9 +3,13 @@ function TopControls({
   handleFileChange,
   handleYoutubeImport,
   isImporting,
+  isYouTubeImportAvailable,
   onYouTubeUrlChange,
+  youtubeImportUnavailableMessage,
   youtubeUrl,
 }) {
+  const youtubeImportStatusId = 'youtube-import-status';
+
   return (
     <section className="dashboard-top">
       <label className="dashboard-action dashboard-action--file" htmlFor="local-audio-file">
@@ -19,20 +23,35 @@ function TopControls({
         onChange={handleFileChange}
       />
 
-      <form className="dashboard-url" onSubmit={handleYoutubeImport}>
+      <form
+        className={`dashboard-url${isYouTubeImportAvailable ? '' : ' dashboard-url--disabled'}`}
+        onSubmit={handleYoutubeImport}
+      >
         <input
           className="dashboard-url__input"
           id="youtube-url"
           type="url"
           value={youtubeUrl}
-          placeholder="YouTube URL"
+          placeholder={isYouTubeImportAvailable ? 'YouTube URL' : 'YouTube import unavailable'}
           aria-label="YouTube URL"
+          aria-describedby={isYouTubeImportAvailable ? undefined : youtubeImportStatusId}
+          disabled={!isYouTubeImportAvailable}
           onChange={(event) => onYouTubeUrlChange(event.target.value)}
         />
-        <button className="dashboard-url__submit" type="submit" disabled={isImporting}>
-          {isImporting ? '...' : 'Go'}
+        <button
+          className="dashboard-url__submit"
+          type="submit"
+          disabled={isImporting || !isYouTubeImportAvailable}
+        >
+          {isImporting ? '...' : (isYouTubeImportAvailable ? 'Go' : 'Off')}
         </button>
       </form>
+
+      {!isYouTubeImportAvailable ? (
+        <p className="dashboard-helper" id={youtubeImportStatusId}>
+          {youtubeImportUnavailableMessage}
+        </p>
+      ) : null}
 
       <div
         className={`dashboard-error-slot dashboard-error-slot--${errorDisplay.phase}`}

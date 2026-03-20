@@ -1,5 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { getYoutubeBridgeUrl } from '../constants.js';
+import {
+  getYoutubeBridgeUrl,
+  isYouTubeImportAvailable,
+  youtubeImportUnavailableMessage,
+} from '../constants.js';
 import { useFeatureAnalysis } from './useFeatureAnalysis.js';
 import { revokeMetadataArtworkUrl } from '../utils/artwork.js';
 import {
@@ -130,6 +134,11 @@ export const useTrackLoader = ({ onTrackLoaded = noop } = {}) => {
 
   const handleYoutubeImport = useCallback(async (event) => {
     event.preventDefault();
+
+    if (!isYouTubeImportAvailable) {
+      setLoadError(youtubeImportUnavailableMessage);
+      return;
+    }
 
     const trimmedUrl = youtubeUrl.trim();
 
@@ -280,6 +289,8 @@ export const useTrackLoader = ({ onTrackLoaded = noop } = {}) => {
     loadError,
     playerVersion,
     sourceMetadata,
+    isYouTubeImportAvailable,
+    youtubeImportUnavailableMessage,
     youtubeUrl,
   };
 };
