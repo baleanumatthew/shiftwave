@@ -59,8 +59,12 @@ export const useFeatureAnalysis = (isCurrentLoad) => {
 
   const runFeatureAnalysis = useCallback((audioBuffer, loadId) => {
     const monoAudio = downMix(audioBuffer);
-    const bpmWorker = new Worker(new URL('../../audio-worker-bpm.js', import.meta.url));
-    const keyWorker = new Worker(new URL('../../audio-worker-key.js', import.meta.url));
+    const bpmWorker = new Worker(new URL('../../audio-worker-bpm.js', import.meta.url), {
+      type: 'module',
+    });
+    const keyWorker = new Worker(new URL('../../audio-worker-key.js', import.meta.url), {
+      type: 'module',
+    });
 
     activeWorkersRef.current = [bpmWorker, keyWorker];
 

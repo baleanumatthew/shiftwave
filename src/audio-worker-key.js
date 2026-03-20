@@ -1,46 +1,44 @@
-/* global Essentia, importScripts */
+import { getEssentiaInstance, getWorkerErrorMessage } from './audio-worker-essentia.js';
 
-let exports = {};
+const extractKey = (audioSource, sampleRate) => {
+  const essentia = getEssentiaInstance();
+  const audioVector = essentia.arrayToVector(audioSource);
 
-try {
-    importScripts('https://cdn.jsdelivr.net/npm/essentia.js@0.1.3/dist/essentia-wasm.umd.js',
-                  'https://cdn.jsdelivr.net/npm/essentia.js@0.1.3/dist/essentia.js-core.js')
-} catch (e) {
-    console.error(e.message);
-}
+  try {
+    const key = essentia.KeyExtractor(
+      audioVector,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      sampleRate,
+    );
 
-let essentia = new Essentia(exports.EssentiaWASM, false);
-let audio = null;
-
-onmessage = function listenToMainThread (msg) {
-    if (!essentia) {
-        this.postMessage({error: "EssentiaNotLoaded"});
-        return 1;
-    }
-
-    audio = msg.data.audio;
-    const sampleRate = msg.data.sr;
-    const key = extractKey(audio, sampleRate);
-    self.postMessage({
-        key: key.key,
-        scale: key.scale
-    });
+    return {
+      key: key.key,
+      scale: key.scale,
+    };
+  } finally {
+    audioVector.delete();
+  }
 };
 
-const extractKey = (audioSrc, sampleRate) => {
-    const audioVector = essentia.arrayToVector(audioSrc);
-    const key = essentia.KeyExtractor(
-        audioVector,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        sampleRate);
-    audioVector.delete();
-    return {key: key.key, scale: key.scale};
+self.onmessage = ({ data }) => {
+  try {
+    const key = extractKey(data.audio, data.sr);
+
+    self.postMessage({
+      key: key.key,
+      scale: key.scale,
+    });
+  } catch (error) {
+    self.postMessage({
+      error: getWorkerErrorMessage(error),
+    });
+  }
 };
