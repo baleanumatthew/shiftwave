@@ -233,6 +233,9 @@ export const useAnimatedValueDisplay = (value, durationMs = contentRevealAnimati
               phase: 'exiting',
             }
       ));
+      // Clear the logical current value as soon as exit begins so a fresh
+      // result for the next track can re-enter even if its label matches.
+      currentValueRef.current = '';
 
       timeoutRef.current = window.setTimeout(() => {
         if (pendingValueRef.current) {
