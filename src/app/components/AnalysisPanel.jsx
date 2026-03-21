@@ -16,6 +16,8 @@ function AnalysisPanel({
   keyAdjustmentDisplay,
   keyValueDisplay,
   originalKeyLabel,
+  showKeyAdjustment,
+  showTempoAdjustment,
   tempoAdjustmentDisplay,
   tempoLabel,
   tempoValueDisplay,
@@ -29,12 +31,14 @@ function AnalysisPanel({
       <div className="dashboard-stat">
         <span className="dashboard-stat__label">Tempo</span>
         <p className="dashboard-stat__value">
-          <span className={`dashboard-stat__primary-group dashboard-stat__primary-group--${tempoValueDisplay.phase}`}>
-            <span className="dashboard-stat__segment dashboard-stat__segment--primary">
-              {tempoLabel}
+          {hasTempoValue ? (
+            <span className={`dashboard-stat__primary-group dashboard-stat__primary-group--${tempoValueDisplay.phase}`}>
+              <span className="dashboard-stat__segment dashboard-stat__segment--primary">
+                {tempoLabel}
+              </span>
             </span>
-          </span>
-          {tempoAdjustmentDisplay.isVisible && hasTempoValue ? (
+          ) : null}
+          {showTempoAdjustment ? (
             <span
               className={`dashboard-stat__adjusted dashboard-stat__adjusted--${tempoAdjustmentDisplay.phase}`}
             >
@@ -48,12 +52,14 @@ function AnalysisPanel({
       <div className="dashboard-stat">
         <span className="dashboard-stat__label">Key</span>
         <p className="dashboard-stat__value">
-          <span className={`dashboard-stat__primary-group dashboard-stat__primary-group--${keyValueDisplay.phase}`}>
-            <span className="dashboard-stat__segment dashboard-stat__segment--primary">
-              {originalKeyLabel}
+          {hasKeyValue ? (
+            <span className={`dashboard-stat__primary-group dashboard-stat__primary-group--${keyValueDisplay.phase}`}>
+              <span className="dashboard-stat__segment dashboard-stat__segment--primary">
+                {originalKeyLabel}
+              </span>
             </span>
-          </span>
-          {keyAdjustmentDisplay.isVisible && hasKeyValue ? (
+          ) : null}
+          {showKeyAdjustment ? (
             <span
               className={`dashboard-stat__adjusted dashboard-stat__adjusted--${keyAdjustmentDisplay.phase}`}
             >

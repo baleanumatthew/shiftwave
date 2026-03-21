@@ -49,6 +49,8 @@ function App() {
     metadataDisplay,
     metadataLabelAdjustmentDisplay,
     originalKeyLabel,
+    showKeyAdjustment,
+    showTempoAdjustment,
     tempoAdjustmentDisplay,
     tempoLabel,
     tempoValueDisplay,
@@ -87,6 +89,8 @@ function App() {
               keyAdjustmentDisplay={keyAdjustmentDisplay}
               keyValueDisplay={keyValueDisplay}
               originalKeyLabel={originalKeyLabel}
+              showKeyAdjustment={showKeyAdjustment}
+              showTempoAdjustment={showTempoAdjustment}
               tempoAdjustmentDisplay={tempoAdjustmentDisplay}
               tempoLabel={tempoLabel}
               tempoValueDisplay={tempoValueDisplay}

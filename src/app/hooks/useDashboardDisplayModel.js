@@ -22,37 +22,49 @@ export const useDashboardDisplayModel = ({
 }) => {
   const artworkDisplay = useAnimatedArtworkDisplay(sourceMetadata);
   const metadataDisplay = useAnimatedMetadataDisplay(sourceMetadata);
-  const keyValueDisplay = useAnimatedValueDisplay(
-    features.key
-      ? `${formatDisplayKey(features.key)} ${formatDisplayScale(features.scale)}`
-      : '',
-  );
-  const tempoValueDisplay = useAnimatedValueDisplay(formatBpm(features.tempo));
+  const keyResultLabel = features.key
+    ? `${formatDisplayKey(features.key)} ${formatDisplayScale(features.scale)}`.trim()
+    : '';
+  const tempoResultLabel = formatBpm(features.tempo);
+  const hasCalculatedKey = Boolean(keyResultLabel);
+  const hasCalculatedTempo = Boolean(tempoResultLabel);
+  const keyValueDisplay = useAnimatedValueDisplay(keyResultLabel);
+  const tempoValueDisplay = useAnimatedValueDisplay(tempoResultLabel);
   const errorDisplay = useAnimatedValueDisplay(loadError, contentRevealAnimationDurationMs);
   const glowPalette = useArtworkGlowPalette(artworkDisplay.item);
 
-  const tempoLabel = tempoValueDisplay.value;
-  const adjustedTempoLabel = features.tempo
+  const tempoLabel = hasCalculatedTempo ? tempoValueDisplay.value : '';
+  const adjustedTempoLabel = hasCalculatedTempo
     ? formatBpm(features.tempo * tempoMultiplier)
     : '';
-  const originalKeyLabel = keyValueDisplay.value;
-  const adjustedKeyLabel = features.key
-    ? `${formatDisplayKey(transposeKey(features.key, pitchSemitones))} ${formatDisplayScale(features.scale)}`
+  const originalKeyLabel = hasCalculatedKey ? keyValueDisplay.value : '';
+  const adjustedKeyLabel = hasCalculatedKey
+    ? `${formatDisplayKey(transposeKey(features.key, pitchSemitones))} ${formatDisplayScale(features.scale)}`.trim()
     : '';
   const tempoIsAdjusted = Math.abs(tempoMultiplier - 1) > 0.0001;
   const pitchIsAdjusted = pitchSemitones !== 0;
-  const tempoAdjustmentDisplay = useAnimatedAdjustmentDisplay(tempoIsAdjusted, adjustedTempoLabel);
-  const keyAdjustmentDisplay = useAnimatedAdjustmentDisplay(pitchIsAdjusted, adjustedKeyLabel);
+  const tempoPrimaryReadyForAdjustment = hasCalculatedTempo
+    && tempoValueDisplay.phase !== 'hidden'
+    && tempoValueDisplay.phase !== 'exiting';
+  const keyPrimaryReadyForAdjustment = hasCalculatedKey
+    && keyValueDisplay.phase !== 'hidden'
+    && keyValueDisplay.phase !== 'exiting';
+  const tempoAdjustmentDisplay = useAnimatedAdjustmentDisplay(
+    tempoIsAdjusted && tempoPrimaryReadyForAdjustment,
+    adjustedTempoLabel,
+  );
+  const keyAdjustmentDisplay = useAnimatedAdjustmentDisplay(
+    pitchIsAdjusted && keyPrimaryReadyForAdjustment,
+    adjustedKeyLabel,
+  );
   const metadataLabelAdjustmentDisplay = useAnimatedAdjustmentDisplay(
     metadataDisplay.item.showsArtistLabelSuffix,
     '- Artist',
   );
-  const hasTempoValue = tempoIsAdjusted
-    ? tempoValueDisplay.isVisible && Boolean(adjustedTempoLabel)
-    : tempoValueDisplay.isVisible;
-  const hasKeyValue = pitchIsAdjusted
-    ? keyValueDisplay.isVisible && Boolean(adjustedKeyLabel)
-    : keyValueDisplay.isVisible;
+  const hasTempoValue = hasCalculatedTempo && tempoValueDisplay.phase !== 'hidden';
+  const hasKeyValue = hasCalculatedKey && keyValueDisplay.phase !== 'hidden';
+  const showTempoAdjustment = tempoPrimaryReadyForAdjustment && tempoAdjustmentDisplay.isVisible;
+  const showKeyAdjustment = keyPrimaryReadyForAdjustment && keyAdjustmentDisplay.isVisible;
 
   return {
     artworkDisplay,
@@ -69,6 +81,8 @@ export const useDashboardDisplayModel = ({
     metadataDisplay,
     metadataLabelAdjustmentDisplay,
     originalKeyLabel,
+    showKeyAdjustment,
+    showTempoAdjustment,
     tempoAdjustmentDisplay,
     tempoLabel,
     tempoValueDisplay,
