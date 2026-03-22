@@ -1,6 +1,6 @@
 ## Shiftwave
 
-Shiftwave is a Vite + React audio player with tempo/key analysis, local file uploads, and an optional YouTube import bridge.
+Shiftwave is a React audio player with tempo/key analysis, local file uploads, and an optional YouTube import bridge.
 
 ## Local Development
 
@@ -20,3 +20,5 @@ npm run youtube-bridge
 ```
 
 If you expose that bridge through a tunnel or host it elsewhere, set `VITE_YOUTUBE_BRIDGE_BASE_URL` for the frontend and `YOUTUBE_BRIDGE_PUBLIC_URL` for the bridge process.
+
+You can also export your adjusted audio to a .wav file
