@@ -137,7 +137,7 @@ function AudioPlayerWorklet({
       />
 
       <ExportCard
-        exportLabel="Export"
+        exportLabel="Download Audio"
         exportDisabled={!audioBuffer || isExporting}
         handleExport={handleExport}
         isExporting={isExporting}
