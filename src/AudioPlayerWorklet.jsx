@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import ControlPod from './audio-player/components/ControlPod.jsx';
+import ExportCard from './audio-player/components/ExportCard.jsx';
 import TransportDock from './audio-player/components/TransportDock.jsx';
 import {
   DEFAULT_PITCH_SEMITONES,
@@ -12,6 +13,7 @@ import {
   TEMPO_MAX,
   TEMPO_MIN,
 } from './audio-player/constants.js';
+import { useAudioExport } from './audio-player/hooks/useAudioExport.js';
 import { useSoundTouchPlayer } from './audio-player/hooks/useSoundTouchPlayer.js';
 import { clamp } from './audio-player/utils.js';
 
@@ -21,6 +23,7 @@ function AudioPlayerWorklet({
   onPitchSemitonesChange,
   onTempoChange,
   onVolumeChange,
+  sourceMetadata,
   shouldAnimatePanels = false,
   volume = DEFAULT_VOLUME,
 }) {
@@ -44,6 +47,16 @@ function AudioPlayerWorklet({
     audioBuffer,
     audioCtx,
     volume,
+  });
+  const {
+    exportError,
+    handleExport,
+    isExporting,
+  } = useAudioExport({
+    audioBuffer,
+    pitchSemitones,
+    sourceMetadata,
+    tempo,
   });
 
   useEffect(() => {
@@ -105,6 +118,7 @@ function AudioPlayerWorklet({
       />
 
       {loadError ? <p className="player-inline-error" role="alert">{loadError}</p> : null}
+      {exportError ? <p className="player-inline-error" role="alert">{exportError}</p> : null}
 
       <TransportDock
         beginScrub={beginScrub}
@@ -120,6 +134,14 @@ function AudioPlayerWorklet({
         progressInputRef={progressInputRef}
         timePlayed={timePlayed}
         valueVolume={volume}
+      />
+
+      <ExportCard
+        exportLabel="Export"
+        exportDisabled={!audioBuffer || isExporting}
+        handleExport={handleExport}
+        isExporting={isExporting}
+        panelClassName={panelClassName}
       />
     </>
   );

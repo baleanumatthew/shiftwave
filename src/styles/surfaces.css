@@ -4,7 +4,8 @@
 .dashboard-stats,
 .dashboard-meta,
 .control-pod,
-.transport-dock {
+.transport-dock,
+.export-card {
   position: relative;
   background:
     linear-gradient(var(--surface), var(--surface)) padding-box,
@@ -30,8 +31,10 @@
 .dashboard-meta,
 .control-pod,
 .transport-dock,
+.export-card,
 .dashboard-url__submit,
 .transport-button,
+.export-card__button,
 .control-pod__step,
 .control-pod__center {
   transition:
@@ -45,13 +48,15 @@
 .dashboard-url:hover,
 .dashboard-meta:hover,
 .control-pod:hover,
-.transport-dock:hover {
+.transport-dock:hover,
+.export-card:hover {
   transform: translateY(-1px);
   box-shadow: var(--shadow-strong);
 }
 
 .dashboard-url__submit:hover,
 .transport-button:hover,
+.export-card__button:hover,
 .control-pod__step:hover,
 .control-pod__center:hover {
   background: var(--surface-raised);
@@ -59,6 +64,7 @@
 
 .dashboard-url__submit:active,
 .transport-button:active,
+.export-card__button:active,
 .control-pod__step:active,
 .control-pod__center:active {
   transform: translateY(0);
@@ -68,6 +74,7 @@
 .dashboard-url:focus-within,
 .dashboard-url__submit:focus-visible,
 .transport-button:focus-visible,
+.export-card__button:focus-visible,
 .control-pod__step:focus-visible,
 .control-pod__center:focus-visible,
 .control-pod__reset:focus-visible {

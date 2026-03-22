@@ -82,12 +82,15 @@
 .control-pod__center:disabled,
 .control-pod__reset:disabled,
 .dashboard-url__submit:disabled,
-.transport-button:disabled {
+.transport-button:disabled,
+.export-card__button:disabled {
   color: var(--text-soft);
+  cursor: not-allowed;
 }
 
 .player-inline-error,
-.transport-dock {
+.transport-dock,
+.export-card {
   grid-column: 1 / -1;
 }
 
@@ -102,8 +105,10 @@
   border-radius: var(--radius-lg);
 }
 
-.transport-dock__play {
+.transport-dock__actions {
   display: flex;
+  align-items: center;
+  gap: 12px;
   justify-self: start;
 }
 
@@ -161,6 +166,33 @@
   display: inline-grid;
   place-items: center;
   min-width: 26px;
+}
+
+.export-card {
+  display: grid;
+  place-items: center;
+  min-height: 66px;
+  padding: 8px;
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.export-card__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 148px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .range-input {

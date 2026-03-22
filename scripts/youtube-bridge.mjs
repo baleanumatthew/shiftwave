@@ -116,8 +116,29 @@ const cleanExpiredJobs = () => {
 
 const sanitizeFileStem = (value) => String(value ?? '')
   .replace(/[<>:"/\\|?*]+/g, '')
+  .replace(/[\u0000-\u001F\u007F]+/gu, ' ')
   .replace(/\s+/g, ' ')
   .trim();
+
+const encodeContentDispositionFilename = (value) => encodeURIComponent(value)
+  .replace(/['()*]/g, (character) => (
+    `%${character.charCodeAt(0).toString(16).toUpperCase()}`
+  ));
+
+const createInlineMediaDisposition = (value, fallbackStem) => {
+  const normalizedStem = sanitizeFileStem(value) || sanitizeFileStem(fallbackStem) || 'audio';
+  const asciiStem = normalizedStem
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/gu, '')
+    .replace(/[^\x20-\x7E]+/g, '')
+    .replace(/["\\]/g, '')
+    .trim();
+  const safeAsciiStem = asciiStem || sanitizeFileStem(fallbackStem) || 'audio';
+  const utf8Filename = `${normalizedStem}.mp3`;
+  const asciiFilename = `${safeAsciiStem}.mp3`;
+
+  return `inline; filename="${asciiFilename}"; filename*=UTF-8''${encodeContentDispositionFilename(utf8Filename)}`;
+};
 
 const extractYouTubeVideoId = (input) => {
   const trimmedInput = String(input ?? '').trim();
@@ -724,7 +745,7 @@ const serveCachedMedia = async (response, jobId) => {
   response.setHeader('Content-Type', 'audio/mpeg');
   response.setHeader(
     'Content-Disposition',
-    `inline; filename="${sanitizeFileStem(job.title ?? job.videoId) || job.videoId}.mp3"`,
+    createInlineMediaDisposition(job.title ?? job.videoId, job.videoId),
   );
 
   const sourceStream = createReadStream(job.mediaPath);
@@ -879,6 +900,17 @@ const server = createServer(async (request, response) => {
 
     sendJson(response, 404, { error: 'Bridge route not found.' });
   } catch (error) {
+    logBridge(
+      `${request.method} ${requestUrl.pathname} failed: ${
+        error instanceof Error ? error.message : 'unknown error'
+      }`,
+    );
+
+    if (response.headersSent || response.writableEnded) {
+      response.destroy();
+      return;
+    }
+
     sendJson(response, 500, {
       error: error instanceof Error ? error.message : 'The bridge could not finish the YouTube request.',
     });

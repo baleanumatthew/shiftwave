@@ -112,6 +112,7 @@ function App() {
               onTempoChange={setTempoMultiplier}
               onPitchSemitonesChange={setPitchSemitones}
               onVolumeChange={setPlayerVolume}
+              sourceMetadata={sourceMetadata}
               shouldAnimatePanels={shouldAnimatePanels}
               volume={playerVolume}
             />

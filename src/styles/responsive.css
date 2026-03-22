@@ -57,8 +57,21 @@
     grid-template-columns: 1fr;
   }
 
-  .transport-button {
+  .transport-dock__actions {
     width: 100%;
+    display: flex;
+  }
+
+  .transport-button--play {
+    min-width: 48px;
+  }
+
+  .export-card {
+    place-items: center;
+  }
+
+  .export-card__button {
+    width: auto;
   }
 
   .transport-dock__time {

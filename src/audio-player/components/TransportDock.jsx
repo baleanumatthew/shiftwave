@@ -25,9 +25,9 @@ function TransportDock({
 }) {
   return (
     <section className={`transport-dock${panelClassName}`}>
-      <div className="transport-dock__play">
+      <div className="transport-dock__actions">
         <button
-          className="transport-button"
+          className="transport-button transport-button--play"
           type="button"
           onClick={handlePlayPause}
           disabled={!isReady}
