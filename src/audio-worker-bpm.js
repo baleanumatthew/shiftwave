@@ -5,7 +5,7 @@ const extractTempo = (audioSource, sampleRate) => {
   const audioVector = essentia.arrayToVector(audioSource);
 
   try {
-    const tempo = essentia.RhythmExtractor(
+    const tempo = essentia.RhythmExtractor2013(
       audioVector,
       undefined,
       undefined,
