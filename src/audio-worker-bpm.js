@@ -3,9 +3,9 @@ import { getEssentiaInstance, getWorkerErrorMessage } from './audio-worker-essen
 const extractTempo = (audioSource, sampleRate) => {
   const essentia = getEssentiaInstance();
   const audioVector = essentia.arrayToVector(audioSource);
-
-  try {
-    const tempo = essentia.RhythmExtractor2013(
+  const extractRhythm = sampleRate === 44100
+    ? () => essentia.RhythmExtractor2013(audioVector)
+    : () => essentia.RhythmExtractor(
       audioVector,
       undefined,
       undefined,
@@ -14,8 +14,11 @@ const extractTempo = (audioSource, sampleRate) => {
       undefined,
       undefined,
       undefined,
-      sampleRate,
+      sampleRate
     );
+
+  try {
+    const tempo = extractRhythm();
 
     return { tempo: tempo.bpm };
   } finally {
