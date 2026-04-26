@@ -102,11 +102,7 @@ export const formatBpm = (tempo) => {
     return '';
   }
 
-  const roundedTempo = Math.round(tempo * 10) / 10;
-
-  return Number.isInteger(roundedTempo)
-    ? `${roundedTempo} BPM`
-    : `${parseInt(roundedTempo.toFixed(2), 10)} BPM`;
+  return `${Math.round(tempo)} BPM`;
 };
 
 export const formatMetadataList = (value) => {
