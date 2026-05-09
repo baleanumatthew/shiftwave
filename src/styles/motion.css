@@ -91,22 +91,22 @@
 @keyframes title-outline-glow {
   from {
     filter:
-      drop-shadow(0 0 8px color-mix(in srgb, var(--glow-color-primary) 18%, transparent))
-      drop-shadow(0 0 18px color-mix(in srgb, var(--glow-color-secondary) 12%, transparent))
-      drop-shadow(0 0 26px color-mix(in srgb, var(--glow-color-tertiary) 10%, transparent));
+      drop-shadow(0 0 8px var(--glow-primary-18))
+      drop-shadow(0 0 18px var(--glow-secondary-12))
+      drop-shadow(0 0 26px var(--glow-tertiary-10));
   }
 
   50% {
     filter:
-      drop-shadow(0 0 10px color-mix(in srgb, var(--glow-color-primary) 28%, transparent))
-      drop-shadow(0 0 24px color-mix(in srgb, var(--glow-color-secondary) 18%, transparent))
-      drop-shadow(0 0 34px color-mix(in srgb, var(--glow-color-tertiary) 14%, transparent));
+      drop-shadow(0 0 10px var(--glow-primary-28))
+      drop-shadow(0 0 24px var(--glow-secondary-18))
+      drop-shadow(0 0 34px var(--glow-tertiary-14));
   }
 
   to {
     filter:
-      drop-shadow(0 0 8px color-mix(in srgb, var(--glow-color-primary) 18%, transparent))
-      drop-shadow(0 0 18px color-mix(in srgb, var(--glow-color-secondary) 12%, transparent))
-      drop-shadow(0 0 26px color-mix(in srgb, var(--glow-color-tertiary) 10%, transparent));
+      drop-shadow(0 0 8px var(--glow-primary-18))
+      drop-shadow(0 0 18px var(--glow-secondary-12))
+      drop-shadow(0 0 26px var(--glow-tertiary-10));
   }
 }

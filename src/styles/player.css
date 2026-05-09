@@ -130,8 +130,8 @@
   display: block;
   overflow: visible;
   filter:
-    drop-shadow(0 0 8px color-mix(in srgb, var(--glow-color-secondary) 28%, transparent))
-    drop-shadow(0 0 12px color-mix(in srgb, var(--glow-color-primary) 16%, transparent));
+    drop-shadow(0 0 8px var(--glow-secondary-28))
+    drop-shadow(0 0 12px var(--glow-primary-16));
 }
 
 .transport-dock__progress {
@@ -211,14 +211,14 @@
     linear-gradient(var(--surface), var(--surface)) padding-box,
     linear-gradient(
       115deg,
-      color-mix(in srgb, var(--glow-color-primary) 88%, transparent),
-      color-mix(in srgb, var(--glow-color-secondary) 42%, transparent),
-      color-mix(in srgb, var(--glow-color-tertiary) 82%, transparent),
-      color-mix(in srgb, var(--glow-color-primary) 88%, transparent)
+      var(--glow-primary-88),
+      var(--glow-secondary-42),
+      var(--glow-tertiary-82),
+      var(--glow-primary-88)
     ) border-box;
   box-shadow:
-    0 0 0 0.5px color-mix(in srgb, var(--glow-color-primary) 20%, transparent),
-    0 0 12px color-mix(in srgb, var(--glow-color-secondary) 12%, transparent);
+    0 0 0 0.5px var(--glow-primary-20),
+    0 0 12px var(--glow-secondary-12);
 }
 
 .range-input::-webkit-slider-thumb {
@@ -232,14 +232,14 @@
     linear-gradient(var(--surface), var(--surface)) padding-box,
     linear-gradient(
       115deg,
-      color-mix(in srgb, var(--glow-color-primary) 88%, transparent),
-      color-mix(in srgb, var(--glow-color-secondary) 42%, transparent),
-      color-mix(in srgb, var(--glow-color-tertiary) 82%, transparent),
-      color-mix(in srgb, var(--glow-color-primary) 88%, transparent)
+      var(--glow-primary-88),
+      var(--glow-secondary-42),
+      var(--glow-tertiary-82),
+      var(--glow-primary-88)
     ) border-box;
   box-shadow:
-    0 0 0 0.5px color-mix(in srgb, var(--glow-color-primary) 20%, transparent),
-    0 0 12px color-mix(in srgb, var(--glow-color-secondary) 12%, transparent);
+    0 0 0 0.5px var(--glow-primary-20),
+    0 0 12px var(--glow-secondary-12);
 }
 
 .range-input::-moz-range-track {
@@ -250,14 +250,14 @@
     linear-gradient(var(--surface), var(--surface)) padding-box,
     linear-gradient(
       115deg,
-      color-mix(in srgb, var(--glow-color-primary) 88%, transparent),
-      color-mix(in srgb, var(--glow-color-secondary) 42%, transparent),
-      color-mix(in srgb, var(--glow-color-tertiary) 82%, transparent),
-      color-mix(in srgb, var(--glow-color-primary) 88%, transparent)
+      var(--glow-primary-88),
+      var(--glow-secondary-42),
+      var(--glow-tertiary-82),
+      var(--glow-primary-88)
     ) border-box;
   box-shadow:
-    0 0 0 0.5px color-mix(in srgb, var(--glow-color-primary) 20%, transparent),
-    0 0 12px color-mix(in srgb, var(--glow-color-secondary) 12%, transparent);
+    0 0 0 0.5px var(--glow-primary-20),
+    0 0 12px var(--glow-secondary-12);
 }
 
 .range-input::-moz-range-progress {
@@ -268,14 +268,14 @@
     linear-gradient(var(--surface), var(--surface)) padding-box,
     linear-gradient(
       115deg,
-      color-mix(in srgb, var(--glow-color-primary) 88%, transparent),
-      color-mix(in srgb, var(--glow-color-secondary) 42%, transparent),
-      color-mix(in srgb, var(--glow-color-tertiary) 82%, transparent),
-      color-mix(in srgb, var(--glow-color-primary) 88%, transparent)
+      var(--glow-primary-88),
+      var(--glow-secondary-42),
+      var(--glow-tertiary-82),
+      var(--glow-primary-88)
     ) border-box;
   box-shadow:
-    0 0 0 0.5px color-mix(in srgb, var(--glow-color-primary) 20%, transparent),
-    0 0 12px color-mix(in srgb, var(--glow-color-secondary) 12%, transparent);
+    0 0 0 0.5px var(--glow-primary-20),
+    0 0 12px var(--glow-secondary-12);
 }
 
 .range-input::-moz-range-thumb {
@@ -287,14 +287,14 @@
     linear-gradient(var(--surface), var(--surface)) padding-box,
     linear-gradient(
       115deg,
-      color-mix(in srgb, var(--glow-color-primary) 88%, transparent),
-      color-mix(in srgb, var(--glow-color-secondary) 42%, transparent),
-      color-mix(in srgb, var(--glow-color-tertiary) 82%, transparent),
-      color-mix(in srgb, var(--glow-color-primary) 88%, transparent)
+      var(--glow-primary-88),
+      var(--glow-secondary-42),
+      var(--glow-tertiary-82),
+      var(--glow-primary-88)
     ) border-box;
   box-shadow:
-    0 0 0 0.5px color-mix(in srgb, var(--glow-color-primary) 20%, transparent),
-    0 0 12px color-mix(in srgb, var(--glow-color-secondary) 12%, transparent);
+    0 0 0 0.5px var(--glow-primary-20),
+    0 0 12px var(--glow-secondary-12);
 }
 
 .range-input::-moz-focus-outer {

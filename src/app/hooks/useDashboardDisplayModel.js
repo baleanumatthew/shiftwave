@@ -13,6 +13,41 @@ import {
   transposeKey,
 } from '../utils/display.js';
 
+const rgbPattern = /^rgb\(\s*(\d+)\s+(\d+)\s+(\d+)\s*\)$/u;
+
+const formatGlowAlpha = (color, alpha) => {
+  const match = rgbPattern.exec(color);
+
+  if (!match) {
+    return color;
+  }
+
+  const [, red, green, blue] = match;
+
+  return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+};
+
+const createGlowStyle = (glowPalette) => ({
+  '--glow-color-primary': glowPalette.primary,
+  '--glow-color-secondary': glowPalette.secondary,
+  '--glow-color-tertiary': glowPalette.tertiary,
+  '--glow-primary-95': formatGlowAlpha(glowPalette.primary, 0.95),
+  '--glow-primary-88': formatGlowAlpha(glowPalette.primary, 0.88),
+  '--glow-primary-28': formatGlowAlpha(glowPalette.primary, 0.28),
+  '--glow-primary-20': formatGlowAlpha(glowPalette.primary, 0.2),
+  '--glow-primary-18': formatGlowAlpha(glowPalette.primary, 0.18),
+  '--glow-primary-16': formatGlowAlpha(glowPalette.primary, 0.16),
+  '--glow-secondary-88': formatGlowAlpha(glowPalette.secondary, 0.88),
+  '--glow-secondary-42': formatGlowAlpha(glowPalette.secondary, 0.42),
+  '--glow-secondary-28': formatGlowAlpha(glowPalette.secondary, 0.28),
+  '--glow-secondary-18': formatGlowAlpha(glowPalette.secondary, 0.18),
+  '--glow-secondary-12': formatGlowAlpha(glowPalette.secondary, 0.12),
+  '--glow-tertiary-92': formatGlowAlpha(glowPalette.tertiary, 0.92),
+  '--glow-tertiary-82': formatGlowAlpha(glowPalette.tertiary, 0.82),
+  '--glow-tertiary-14': formatGlowAlpha(glowPalette.tertiary, 0.14),
+  '--glow-tertiary-10': formatGlowAlpha(glowPalette.tertiary, 0.1),
+});
+
 export const useDashboardDisplayModel = ({
   features,
   loadError,
@@ -75,11 +110,7 @@ export const useDashboardDisplayModel = ({
   return {
     artworkDisplay,
     errorDisplay,
-    glowStyle: {
-      '--glow-color-primary': glowPalette.primary,
-      '--glow-color-secondary': glowPalette.secondary,
-      '--glow-color-tertiary': glowPalette.tertiary,
-    },
+    glowStyle: createGlowStyle(glowPalette),
     hasKeyValue,
     hasTempoValue,
     keyAdjustmentDisplay,

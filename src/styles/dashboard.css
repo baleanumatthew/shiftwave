@@ -3,10 +3,7 @@
   display: grid;
   place-items: center;
   padding: 28px 20px 34px;
-  transition:
-    --glow-color-primary 560ms var(--ease-out),
-    --glow-color-secondary 560ms var(--ease-out),
-    --glow-color-tertiary 560ms var(--ease-out);
+  color-scheme: only dark;
 }
 
 .dashboard {
@@ -45,15 +42,15 @@
 }
 
 .dashboard-title__stop--primary {
-  stop-color: color-mix(in srgb, var(--glow-color-primary) 95%, transparent);
+  stop-color: var(--glow-primary-95);
 }
 
 .dashboard-title__stop--secondary {
-  stop-color: color-mix(in srgb, var(--glow-color-secondary) 88%, transparent);
+  stop-color: var(--glow-secondary-88);
 }
 
 .dashboard-title__stop--tertiary {
-  stop-color: color-mix(in srgb, var(--glow-color-tertiary) 92%, transparent);
+  stop-color: var(--glow-tertiary-92);
 }
 
 .dashboard-top {

@@ -24,8 +24,8 @@
     transform: none;
     box-shadow:
       var(--shadow-soft),
-      0 0 0 0.5px color-mix(in srgb, var(--glow-color-primary) 20%, transparent),
-      0 0 22px color-mix(in srgb, var(--glow-color-secondary) 12%, transparent);
+      0 0 0 0.5px var(--glow-primary-20),
+      0 0 22px var(--glow-secondary-12);
   }
 
   .dashboard-stat__value--visible,
@@ -66,8 +66,8 @@
   .dashboard-title__text {
     animation: none;
     filter:
-      drop-shadow(0 0 8px color-mix(in srgb, var(--glow-color-primary) 18%, transparent))
-      drop-shadow(0 0 18px color-mix(in srgb, var(--glow-color-secondary) 12%, transparent))
-      drop-shadow(0 0 26px color-mix(in srgb, var(--glow-color-tertiary) 10%, transparent));
+      drop-shadow(0 0 8px var(--glow-primary-18))
+      drop-shadow(0 0 18px var(--glow-secondary-12))
+      drop-shadow(0 0 26px var(--glow-tertiary-10));
   }
 }
