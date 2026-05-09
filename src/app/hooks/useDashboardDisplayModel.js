@@ -57,10 +57,15 @@ export const useDashboardDisplayModel = ({
 }) => {
   const artworkDisplay = useAnimatedArtworkDisplay(sourceMetadata);
   const metadataDisplay = useAnimatedMetadataDisplay(sourceMetadata);
-  const keyResultLabel = features.key
+  const isTrackDisplayReadyForAnalysis = Boolean(sourceMetadata)
+    && artworkDisplay.phase === 'active'
+    && metadataDisplay.phase === 'active';
+  const rawKeyResultLabel = features.key
     ? `${formatDisplayKey(features.key)} ${formatDisplayScale(features.scale)}`.trim()
     : '';
-  const tempoResultLabel = formatBpm(features.tempo);
+  const rawTempoResultLabel = formatBpm(features.tempo);
+  const keyResultLabel = isTrackDisplayReadyForAnalysis ? rawKeyResultLabel : '';
+  const tempoResultLabel = isTrackDisplayReadyForAnalysis ? rawTempoResultLabel : '';
   const hasCalculatedKey = Boolean(keyResultLabel);
   const hasCalculatedTempo = Boolean(tempoResultLabel);
   const keyValueDisplay = useAnimatedValueDisplay(keyResultLabel);
