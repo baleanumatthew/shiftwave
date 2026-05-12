@@ -1,7 +1,6 @@
 @media (prefers-reduced-motion: reduce) {
   .dashboard-title,
   .dashboard-action,
-  .dashboard-url,
   .dashboard-error-slot,
   .dashboard-meta,
   .control-pod,
@@ -9,7 +8,6 @@
   .dashboard-section--entering,
   .dashboard-panel--entering,
   .dashboard-stats--panel-entering,
-  .dashboard-url__submit,
   .transport-button,
   .control-pod__step,
   .control-pod__center {
@@ -17,7 +15,6 @@
   }
 
   .dashboard-action:hover,
-  .dashboard-url:hover,
   .dashboard-meta:hover,
   .control-pod:hover,
   .transport-dock:hover {
@@ -46,7 +43,6 @@
 
   .dashboard-title,
   .dashboard-action,
-  .dashboard-url,
   .dashboard-error,
   .dashboard-artwork,
   .dashboard-stats,

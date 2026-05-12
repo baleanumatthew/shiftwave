@@ -1,5 +1,4 @@
 .dashboard-action,
-.dashboard-url,
 .dashboard-artwork,
 .dashboard-stats,
 .dashboard-meta,
@@ -27,12 +26,10 @@
 }
 
 .dashboard-action,
-.dashboard-url,
 .dashboard-meta,
 .control-pod,
 .transport-dock,
 .export-card,
-.dashboard-url__submit,
 .transport-button,
 .export-card__button,
 .control-pod__step,
@@ -45,7 +42,6 @@
 }
 
 .dashboard-action:hover,
-.dashboard-url:hover,
 .dashboard-meta:hover,
 .control-pod:hover,
 .transport-dock:hover,
@@ -54,7 +50,6 @@
   box-shadow: var(--shadow-strong);
 }
 
-.dashboard-url__submit:hover,
 .transport-button:hover,
 .export-card__button:hover,
 .control-pod__step:hover,
@@ -62,7 +57,6 @@
   background: var(--surface-raised);
 }
 
-.dashboard-url__submit:active,
 .transport-button:active,
 .export-card__button:active,
 .control-pod__step:active,
@@ -71,8 +65,6 @@
 }
 
 .dashboard-action:focus-visible,
-.dashboard-url:focus-within,
-.dashboard-url__submit:focus-visible,
 .transport-button:focus-visible,
 .export-card__button:focus-visible,
 .control-pod__step:focus-visible,

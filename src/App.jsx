@@ -24,16 +24,10 @@ function App() {
     audioData,
     features,
     handleFileChange,
-    handleYoutubeImport,
-    handleYouTubeUrlChange,
     hasLoadedTrackEver,
-    isImporting,
     loadError,
     playerVersion,
     sourceMetadata,
-    isYouTubeImportAvailable,
-    youtubeImportUnavailableMessage,
-    youtubeUrl,
   } = useTrackLoader({
     onTrackLoaded: resetTrackAdjustments,
   });
@@ -72,12 +66,6 @@ function App() {
         <TopControls
           errorDisplay={errorDisplay}
           handleFileChange={handleFileChange}
-          handleYoutubeImport={handleYoutubeImport}
-          isImporting={isImporting}
-          isYouTubeImportAvailable={isYouTubeImportAvailable}
-          onYouTubeUrlChange={handleYouTubeUrlChange}
-          youtubeImportUnavailableMessage={youtubeImportUnavailableMessage}
-          youtubeUrl={youtubeUrl}
         />
 
         {hasLoadedTrackEver ? (

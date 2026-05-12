@@ -1,11 +1,15 @@
 {
-  "name": "testing-audio-worklet",
+  "name": "shiftwave",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "Shiftwave desktop audio player",
   "type": "module",
+  "main": "electron/main.mjs",
   "scripts": {
     "dev": "vite",
-    "youtube-bridge": "node --env-file=.env scripts/youtube-bridge.mjs",
+    "desktop:dev": "node scripts/electron-dev.mjs",
+    "desktop:build": "npm run build && electron-builder",
+    "desktop:pack": "npm run build && electron-builder --dir",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -22,10 +26,31 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.0",
+    "electron": "^42.0.1",
+    "electron-builder": "^26.8.1",
     "eslint": "^9.39.4",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.4.0",
     "vite": "^8.0.0"
+  },
+  "build": {
+    "appId": "com.shiftwave.app",
+    "productName": "Shiftwave",
+    "asar": true,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "favicon.svg",
+      "package.json"
+    ],
+    "win": {
+      "signAndEditExecutable": false,
+      "verifyUpdateCodeSignature": false,
+      "target": "nsis"
+    }
   }
 }

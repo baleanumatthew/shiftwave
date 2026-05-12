@@ -81,7 +81,6 @@
 .control-pod__step:disabled,
 .control-pod__center:disabled,
 .control-pod__reset:disabled,
-.dashboard-url__submit:disabled,
 .transport-button:disabled,
 .export-card__button:disabled {
   color: var(--text-soft);

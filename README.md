@@ -1,6 +1,6 @@
 ## Shiftwave
 
-Shiftwave is a React audio player with tempo/key analysis, local file uploads, and an optional YouTube import bridge.
+Shiftwave is a React audio player with tempo/key analysis, local file uploads, and desktop packaging.
 
 ## Local Development
 
@@ -11,14 +11,20 @@ npm install
 npm run dev
 ```
 
-The YouTube bridge is optional. During local development, the app will look for it at `http://127.0.0.1:5185` unless you set `VITE_YOUTUBE_BRIDGE_BASE_URL`.
+You can export your adjusted audio to a .wav file.
 
-To run the bridge locally:
+## Desktop App
+
+Run the Electron desktop shell in development:
 
 ```bash
-npm run youtube-bridge
+npm run desktop:dev
 ```
 
-If you expose that bridge through a tunnel or host it elsewhere, set `VITE_YOUTUBE_BRIDGE_BASE_URL` for the frontend and `YOUTUBE_BRIDGE_PUBLIC_URL` for the bridge process.
+Package the desktop app:
 
-You can also export your adjusted audio to a .wav file
+```bash
+npm run desktop:build
+```
+
+The desktop shell packages the local-file audio player as a Windows app.

@@ -82,64 +82,12 @@ export const decodeAudioForPlayback = async (arrayBuffer, sourceMetadata = null)
   }
 };
 
-export const extractYouTubeVideoId = (input) => {
-  const trimmedInput = String(input ?? '').trim();
-  const resolveCandidate = (value) => (
-    /^[A-Za-z0-9_-]{11}$/u.test(String(value ?? '').trim())
-      ? String(value).trim()
-      : null
-  );
-
-  if (/^[A-Za-z0-9_-]{11}$/u.test(trimmedInput)) {
-    return trimmedInput;
-  }
-
-  try {
-    const parsedUrl = new URL(trimmedInput);
-    const hostname = parsedUrl.hostname.replace(/^www\./u, '').toLowerCase();
-    const pathSegments = parsedUrl.pathname.split('/').filter(Boolean);
-
-    if (hostname === 'youtu.be') {
-      return resolveCandidate(pathSegments[0]);
-    }
-
-    if (hostname.endsWith('youtube.com')) {
-      if (parsedUrl.pathname === '/watch') {
-        return resolveCandidate(parsedUrl.searchParams.get('v'));
-      }
-
-      if (['shorts', 'embed', 'live'].includes(pathSegments[0] ?? '')) {
-        return resolveCandidate(pathSegments[1]);
-      }
-    }
-  } catch {
-    return null;
-  }
-
-  return null;
-};
-
-const isBridgeUnavailableError = (error) => (
-  error instanceof TypeError
-  && /failed to fetch|network|load failed/u.test(String(error.message ?? '').toLowerCase())
-);
-
 const isAudioDecodeError = (error) => (
   (error instanceof DOMException
     && ['EncodingError', 'NotSupportedError', 'InvalidStateError', 'AbortError'].includes(error.name))
   || (error instanceof Error
     && /decode|encoding|unsupported|codec|corrupt|format/u.test(String(error.message ?? '').toLowerCase()))
 );
-
-export const getYoutubeImportErrorMessage = (error) => {
-  if (isBridgeUnavailableError(error)) {
-    return 'Server is not active. Contact Administrator for details';
-  }
-
-  return error instanceof Error && error.message
-    ? error.message
-    : 'Failed to import audio from YouTube.';
-};
 
 export const getLocalFileLoadErrorMessage = (error) => {
   if (isAudioDecodeError(error)) {
@@ -150,10 +98,6 @@ export const getLocalFileLoadErrorMessage = (error) => {
     ? error.message
     : 'Failed to load the selected audio file.';
 };
-
-export const wait = (durationMs) => new Promise((resolve) => {
-  window.setTimeout(resolve, durationMs);
-});
 
 export const isLikelyAudioFile = (file) => (
   file.type

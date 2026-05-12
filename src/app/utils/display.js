@@ -29,15 +29,6 @@ export const normalizeMetadataText = (value) => {
   return trimmedValue ? trimmedValue : null;
 };
 
-const normalizeMetadataComparisonText = (value) => (
-  String(value ?? '')
-    .toLowerCase()
-    .normalize('NFKD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, ' ')
-    .trim()
-);
-
 const normalizeKey = (key) => {
   if (!key) {
     return null;
@@ -157,13 +148,7 @@ export const createArtworkDisplayTarget = (metadata) => {
 export const createMetadataDisplayTarget = (metadata) => {
   const metadataTitle = metadata?.title ?? null;
   const metadataArtist = metadata?.artist ?? null;
-  const youtubeTitleContainsAuthor = metadata?.sourceType === 'youtube'
-    && Boolean(metadataTitle)
-    && Boolean(metadataArtist)
-    && normalizeMetadataComparisonText(metadataTitle).includes(
-      normalizeMetadataComparisonText(metadataArtist),
-    );
-  const showsArtistLabelSuffix = !(youtubeTitleContainsAuthor || !metadataArtist);
+  const showsArtistLabelSuffix = Boolean(metadataArtist);
   const summary = metadataTitle
     ? (!showsArtistLabelSuffix
         ? metadataTitle
